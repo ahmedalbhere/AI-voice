@@ -1,47 +1,34 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <!-- تحسين محركات البحث الشامل والميتا الدقيقة -->
+  <!-- SEO شامل وميتا التطبيق -->
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <meta name="description" content="معركة الأبطال: لعبة النقر التنافسية متعددة اللاعبين. كن الملك وتجنب الخاسر في صراع السرعة على العرش. دعم 2-4 لاعبين على جهاز واحد." />
-  <meta name="keywords" content="لعبة نقر, متعددة اللاعبين, عرش, ملك, خاسر, تحدي, منافسة, ألعاب عربية, أونلاين, بدون نت" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover, shrink-to-fit=no" />
+  <meta name="description" content="عرش الأبطال: لعبة نقر تنافسية 2-4 لاعبين. الملك والخاسر على جهاز واحد. اضغط في أي مكان بالمربع وسجل أسرع نقاط." />
+  <meta name="keywords" content="لعبة نقر, متعددة اللاعبين, عرش, ملك, خاسر, منافسة, عربية, بدون نت, أونلاين" />
   <meta name="author" content="صانع الأبطال" />
   <meta name="robots" content="index, follow" />
-  <meta property="og:title" content="عرش الأبطال 👑 - لعبة الملك والخاسر" />
-  <meta property="og:description" content="تنافس مع أصدقائك على جهاز واحد: من يصبح الملك؟ ومن هو الخاسر؟ اضغط بسرعة واربأ العرش." />
+  <meta property="og:title" content="عرش الأبطال 👑 - الملك والخاسر" />
+  <meta property="og:description" content="أسرع لعبة نقر تنافسية. اضغط في أي مكان بالمربع.. كن الملك!" />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="https://i.imgur.com/VDWjZ0c.png" /> <!-- صورة رمزية للعبة -->
   <meta property="og:locale" content="ar_AR" />
   <link rel="canonical" href="https://alabtal-game.com" />
   <meta name="theme-color" content="#0a0709" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   
-  <title>عرش الأبطال 👑 لعبة الملك والخاسر - اضغط واربح</title>
+  <title>عرش الأبطال 👑 - اضغط في أي مكان بالمربع</title>
   
-  <!-- Fonts واي فون رائع للأداء -->
+  <!-- الخطوط والأيقونات خفيفة وسريعة -->
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet" />
-  <!-- Font Awesome 6 (أيقونات خفيفة) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   
   <style>
-    /* متغيرات للألوان والمرونة القصوى */
-    :root {
-      --bg-dark: #0a0709;
-      --gold: #ffd700;
-      --gold-light: #ffed4e;
-      --king-bg: #b71c1c;
-      --loser-bg: #2a2a3a;
-      --card-bg: #1a131f;
-      --border-shine: rgba(212, 175, 55, 0.6);
-    }
-
+    /* متغيرات وأساسيات متجددة - سلسة جداً */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      user-select: none;
       -webkit-tap-highlight-color: transparent;
       font-family: 'Cairo', sans-serif;
     }
@@ -54,385 +41,310 @@
       align-items: center;
       min-height: 100vh;
       min-height: -webkit-fill-available;
-      padding: 12px;
+      padding: 8px;
       margin: 0;
-      transition: all 0.2s;
     }
 
-    /* التكيف التام مع الهواتف */
+    /* الحاوية الرئيسية - نحيفة وجاهزة */
     .game {
-      background: rgba(18, 12, 20, 0.92);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 2px solid var(--border-shine);
-      border-radius: 48px;
-      padding: 22px 16px;
-      max-width: 700px;
+      background: rgba(12, 8, 14, 0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 2px solid rgba(212, 175, 55, 0.55);
+      border-radius: 40px;
+      padding: 18px 14px;
+      max-width: 680px;
       width: 100%;
-      box-shadow: 0 25px 50px #000000, 0 0 0 1px #d4af37 inset;
-      transition: all 0.25s ease;
+      box-shadow: 0 20px 40px #000000, 0 0 0 1px #d4af37 inset;
     }
 
-    /* تحسينات للشاشات الصغيرة جداً */
-    @media (max-width: 420px) {
-      .game { padding: 16px 12px; border-radius: 36px; }
-      h1 { font-size: 1.9rem; }
-      .sub { font-size: 0.9rem; padding: 8px 16px; }
-    }
-
+    /* رأس اللعبة مضغوط */
     h1 {
-      font-size: 2.2rem;
+      font-size: 1.9rem;
       font-weight: 900;
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 8px;
-      text-shadow: 0 0 15px #ffd700, 0 0 35px #d4af37;
-      letter-spacing: 2px;
-      margin-bottom: 8px;
+      gap: 6px;
+      text-shadow: 0 0 12px #ffd700, 0 0 25px #d4af37;
+      margin-bottom: 2px;
     }
-
-    h1 i {
-      color: var(--gold);
-      filter: drop-shadow(0 0 12px gold);
-    }
+    h1 i { color: #ffd700; filter: drop-shadow(0 0 8px gold); }
 
     .sub {
       background: #1e1510e0;
-      padding: 10px 20px;
+      padding: 8px 16px;
       border-radius: 50px;
       display: inline-block;
-      margin: 0 auto 16px;
-      border: 2px solid #d4af37;
-      font-size: 1rem;
+      margin: 0 auto 12px;
+      border: 1.5px solid #d4af37;
+      font-size: 0.85rem;
       font-weight: 700;
       color: #ffe082;
-      width: fit-content;
     }
 
-    /* منتقي اللاعبين - متجاوب ومرن */
+    /* منتقي اللاعبين أصغر وأكثر سلاسة */
     .player-selector {
       display: flex;
       justify-content: center;
-      gap: 12px;
-      margin: 5px 0 20px;
+      gap: 8px;
+      margin: 4px 0 14px;
       flex-wrap: wrap;
     }
-
     .player-option {
       background: #2a1f2a;
-      border-radius: 50px;
-      padding: 4px;
+      border-radius: 40px;
+      padding: 3px;
       border: 2px solid transparent;
-      transition: 0.15s;
-      flex: 0 1 auto;
     }
-
     .player-option.active {
       border: 2px solid #ffd966;
       background: #3e2a3e;
-      box-shadow: 0 0 20px #ffbf00;
+      box-shadow: 0 0 16px #ffbf00;
     }
-
     .player-btn {
       background: #3a2e3a;
       border: none;
       color: #f0e6d2;
-      font-size: 1.1rem;
+      font-size: 0.95rem;
       font-weight: bold;
-      padding: 10px 22px;
-      border-radius: 50px;
+      padding: 8px 18px;
+      border-radius: 40px;
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 8px;
-      transition: 0.1s;
+      gap: 6px;
+      transition: 0.05s;
     }
-
-    .player-btn i { font-size: 1.3rem; }
+    .player-btn i { font-size: 1.1rem; }
     .player-btn.active {
       background: #d4af37;
       color: #0a0505;
-      box-shadow: 0 0 30px #ffbf00;
+      box-shadow: 0 0 20px #ffbf00;
     }
 
-    /* شبكة اللاعبين - متجاوبة مع الـ 4 لاعبين حتى أصغر شاشة */
+    /* شبكة اللاعبين - مربعات أصغر وأكثر رشاقة */
     .players-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 16px;
-      margin: 20px 0 18px;
+      grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+      gap: 12px;
+      margin: 12px 0 12px;
     }
 
-    @media (max-width: 480px) {
-      .players-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-    }
-    @media (max-width: 360px) {
-      .players-grid { grid-template-columns: 1fr; gap: 14px; }
-    }
-
+    /* بطاقة اللاعب - تصغير تام مع بقاء الوضوح */
     .player-card {
-      background: linear-gradient(145deg, #1a131f, #0f0a12);
-      border-radius: 32px;
-      padding: 18px 10px;
-      box-shadow: 0 12px 20px #00000080;
-      transition: 0.2s;
-      border: 3px solid;
+      background: linear-gradient(145deg, #15101b, #0c0810);
+      border-radius: 24px;
+      padding: 12px 8px;
+      box-shadow: 0 10px 16px #00000060;
+      border: 2.5px solid;
       position: relative;
       display: flex;
       flex-direction: column;
       align-items: center;
+      transition: 0.1s;
+      cursor: pointer;  /* إشارة أن أي مكان في البطاقة قابل للنقر */
     }
 
+    /* عند الضغط على أي حتة في المربع - سلاسة تامة */
+    .player-card:active {
+      transform: scale(0.98);
+      opacity: 0.9;
+    }
+
+    /* أيقونات التاج والخاسر مصغرة بشكل متناسب */
     .crown-icon, .loser-icon {
       position: absolute;
-      top: -16px;
+      top: -14px;
       left: 50%;
       transform: translateX(-50%);
-      font-size: 2rem;
-      filter: drop-shadow(0 0 12px gold);
-      z-index: 15;
+      font-size: 1.7rem;
+      filter: drop-shadow(0 0 10px gold);
+      z-index: 20;
+      pointer-events: none;  /* عشان ما تعترضش النقر */
     }
-    .loser-icon { color: #6a6a6a; filter: drop-shadow(0 0 6px #3a3a3a); top: -14px; }
+    .loser-icon { color: #6a6a6a; filter: drop-shadow(0 0 5px #3a3a3a); top: -12px; }
 
     .player-name {
-      font-size: 1.5rem;
+      font-size: 1.2rem;
       font-weight: 900;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
-      margin-bottom: 10px;
+      gap: 4px;
+      margin-bottom: 6px;
     }
 
     .player-score {
-      font-size: 2rem;
+      font-size: 1.8rem;
       font-weight: 900;
-      background: #00000070;
-      border-radius: 60px;
-      padding: 8px 20px;
+      background: #00000060;
+      border-radius: 50px;
+      padding: 4px 16px;
       width: fit-content;
-      margin: 5px auto;
+      margin: 2px auto;
       border: 2px solid #ffffff70;
     }
 
+    /* إخفاء الزر القديم - لأن النقر على البطاقة نفسه */
     .click-btn {
-      width: 100%;
-      padding: 14px 0;
-      border-radius: 50px;
-      border: none;
-      font-size: 1.2rem;
-      font-weight: bold;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      margin-top: 12px;
-      cursor: pointer;
-      transition: 0.05s;
-      border: 2px solid white;
-      touch-action: manipulation;
+      display: none !important;
     }
-    .click-btn:active { transform: scale(0.92); }
-    .click-btn:disabled { opacity: 0.5; filter: grayscale(1); transform: none; }
 
-    /* غرفة العرش بتصميم عمودي للهواتف */
+    /* غرفة العرش - مصغرة ومتجاوبة */
     .throne-room {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
       background: #0f080ec0;
-      border-radius: 60px;
-      padding: 12px 16px;
-      margin: 20px 0 12px;
-      border: 2px solid #b4945c;
-      backdrop-filter: blur(8px);
+      border-radius: 50px;
+      padding: 10px 14px;
+      margin: 12px 0 8px;
+      border: 1.5px solid #b4945c;
       gap: 8px;
       flex-wrap: wrap;
     }
-
     .king-area, .loser-area {
       display: flex;
       align-items: center;
-      gap: 10px;
-      font-size: 1.2rem;
+      gap: 8px;
+      font-size: 0.95rem;
     }
-
     .king-label, .loser-label {
-      padding: 8px 18px;
-      border-radius: 50px;
+      padding: 5px 14px;
+      border-radius: 40px;
       font-weight: 900;
-      font-size: 1.2rem;
-      box-shadow: 0 0 25px gold;
+      font-size: 0.95rem;
+      box-shadow: 0 0 18px gold;
       white-space: nowrap;
     }
-    .loser-label { background: #2a2a3a; color: #dfdfdf; box-shadow: 0 0 15px #1e1e1e; }
+    .loser-label { background: #2a2a3a; box-shadow: 0 0 10px #1e1e1e; }
 
-    @media (max-width: 550px) {
-      .throne-room { flex-direction: column; align-items: stretch; }
-      .king-area, .loser-area { justify-content: center; }
+    @media (max-width: 450px) {
+      .throne-room { flex-direction: column; }
+      .players-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 330px) {
+      .players-grid { grid-template-columns: 1fr; }
     }
 
-    /* المؤقت والشريط */
+    /* المؤقت وشريط التقدم */
     .timer-global {
       background: #1a0f1c;
-      border-radius: 50px;
-      padding: 12px 18px;
-      margin: 8px 0;
+      border-radius: 40px;
+      padding: 8px 16px;
+      margin: 6px 0;
       display: flex;
       align-items: center;
       justify-content: space-between;
       border: 1px solid #d4af37;
-      flex-wrap: wrap;
     }
     .timer-box {
-      font-size: 1.8rem;
+      font-size: 1.5rem;
       font-weight: 900;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 6px;
     }
     #globalTime {
       background: #00000080;
-      padding: 5px 18px;
+      padding: 4px 16px;
       border-radius: 40px;
       color: #ffe082;
     }
     .progress {
       width: 100%;
-      height: 14px;
+      height: 10px;
       background: #2a1f2f;
       border-radius: 20px;
-      margin-top: 12px;
+      margin-top: 8px;
     }
     #progressFill {
       height: 100%;
       width: 100%;
       background: linear-gradient(90deg, #e4b138, #ffd966);
       border-radius: 20px;
-      transition: width 0.15s;
-      box-shadow: 0 0 16px #ffbf00;
+      transition: width 0.1s linear;
     }
 
+    /* أزرار التحكم صغيرة وسريعة */
     .control-panel {
       display: flex;
-      gap: 14px;
+      gap: 12px;
       justify-content: center;
-      margin: 20px 0 5px;
+      margin: 14px 0 4px;
       flex-wrap: wrap;
     }
     .ctrl-btn {
       background: #2a1e32;
       border: 2px solid #b4945c;
       color: #ffd966;
-      padding: 12px 22px;
-      border-radius: 60px;
-      font-size: 1rem;
+      padding: 8px 18px;
+      border-radius: 50px;
+      font-size: 0.85rem;
       font-weight: bold;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       cursor: pointer;
-      transition: 0.1s;
-      flex: 0 1 auto;
+      transition: 0.05s;
     }
-    .ctrl-btn i { font-size: 1.2rem; }
-    .ctrl-btn:active { background: #4f3462; border-color: #ffd966; color: white; }
+    .ctrl-btn:active { background: #4f3462; border-color: #ffd966; }
 
-    /* تحسين SEO وإمكانية الوصول */
-    .sr-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0,0,0,0);
-      border: 0;
-    }
+    /* تذييل صغير */
+    footer p { font-size: 0.65rem; opacity: 0.8; margin-top: 12px; }
 
-    footer {
-      font-size: 0.7rem;
-      opacity: 0.7;
-      margin-top: 16px;
-    }
+    /* تحسين وصول وإمكانية */
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; }
   </style>
 </head>
 <body>
-  <main class="game" role="main" aria-label="لعبة عرش الأبطال التنافسية">
+  <main class="game" role="main" aria-label="عرش الأبطال - اضغط بالمربع">
     <header>
-      <h1 aria-label="عرش الأبطال">
-        <i class="fas fa-crown" aria-hidden="true"></i> عرش الأبطال
-        <i class="fas fa-throne" aria-hidden="true"></i>
-      </h1>
-      <div class="sub" aria-live="polite">
-        <i class="fas fa-users-between-lines" aria-hidden="true"></i> الملك أعلى رقم .. الخاسر أقل رقم
-      </div>
+      <h1><i class="fas fa-crown"></i> عرش الأبطال <i class="fas fa-throne"></i></h1>
+      <div class="sub"><i class="fas fa-hand-pointer"></i> اضغط في أي مكان بالمربع .. أسرع نقاط تفوز</div>
     </header>
 
-    <!-- اختيار عدد اللاعبين مع عناوين ARIA -->
-    <div class="player-selector" role="tablist" aria-label="عدد اللاعبين">
-      <div class="player-option" id="option2" role="tab">
-        <button id="select2Players" class="player-btn" aria-label="2 لاعبين"><i class="fas fa-user-friends"></i> 2</button>
-      </div>
-      <div class="player-option" id="option3" role="tab">
-        <button id="select3Players" class="player-btn" aria-label="3 لاعبين"><i class="fas fa-users"></i> 3</button>
-      </div>
-      <div class="player-option" id="option4" role="tab">
-        <button id="select4Players" class="player-btn" aria-label="4 لاعبين"><i class="fas fa-people-arrows"></i> 4</button>
-      </div>
+    <!-- اختيار عدد اللاعبين -->
+    <div class="player-selector" role="tablist">
+      <div class="player-option" id="option2"><button id="select2Players" class="player-btn"><i class="fas fa-user-friends"></i> 2</button></div>
+      <div class="player-option" id="option3"><button id="select3Players" class="player-btn"><i class="fas fa-users"></i> 3</button></div>
+      <div class="player-option" id="option4"><button id="select4Players" class="player-btn"><i class="fas fa-people-arrows"></i> 4</button></div>
     </div>
 
-    <!-- حاوية اللاعبين - تُملأ ديناميكياً -->
+    <!-- حاوية اللاعبين - المربعات القابلة للنقر في أي مكان -->
     <div id="playersContainer" class="players-grid" aria-label="ساحة اللاعبين"></div>
 
-    <!-- المؤقت العام بواجهة واضحة -->
-    <div class="timer-global" aria-label="الوقت المتبقي">
-      <div class="timer-box">
-        <i class="fas fa-hourglass-half" aria-hidden="true"></i>
-        <span id="globalTime" aria-live="assertive">10.0</span>
-      </div>
-      <div style="font-size:1.2rem;">
-        <i class="fas fa-fist-raised" aria-hidden="true"></i> اضرب بسرعة
-      </div>
+    <!-- المؤقت العالمي -->
+    <div class="timer-global">
+      <div class="timer-box"><i class="fas fa-hourglass-half"></i><span id="globalTime">10.0</span></div>
+      <div style="font-size:1rem;"><i class="fas fa-fist-raised"></i> اضغط بطلاقة</div>
     </div>
-    <div class="progress" role="progressbar" aria-label="شريط الوقت">
-      <div id="progressFill" style="width:100%;"></div>
+    <div class="progress"><div id="progressFill" style="width:100%;"></div></div>
+
+    <!-- غرفة العرش : الملك و الخاسر -->
+    <div class="throne-room">
+      <div class="king-area"><i class="fas fa-crown" style="font-size:1.8rem; color:#ffd700;"></i><span class="king-label" id="kingName">لا ملك</span></div>
+      <div class="loser-area"><i class="fas fa-broken" style="font-size:1.5rem; color:#a0a0a0;"></i><span class="loser-label" id="loserName">لا خاسر</span></div>
     </div>
 
-    <!-- غرفة العرش: الملك و الخاسر -->
-    <div class="throne-room" aria-label="ترتيب اللاعبين">
-      <div class="king-area">
-        <i class="fas fa-crown" style="font-size:2rem; color:#ffd700;" aria-hidden="true"></i>
-        <span class="king-label" id="kingName">لا ملك</span>
-      </div>
-      <div class="loser-area">
-        <i class="fas fa-broken" style="font-size:1.8rem; color:#a0a0a0;" aria-hidden="true"></i>
-        <span class="loser-label" id="loserName">لا خاسر</span>
-      </div>
-    </div>
-
-    <!-- أزرار التحكم: إعادة وتحدي -->
+    <!-- أزرار التحكم الأساسية -->
     <div class="control-panel">
-      <button id="resetGameBtn" class="ctrl-btn" aria-label="بدء معركة جديدة"><i class="fas fa-rotate-right"></i> معركة جديدة</button>
-      <button id="hardGlobalBtn" class="ctrl-btn" aria-label="وضع التحدي يخصم وقت مع كل نقرة"><i class="fas fa-skull"></i> تحدٍ</button>
+      <button id="resetGameBtn" class="ctrl-btn"><i class="fas fa-rotate-right"></i> معركة جديدة</button>
+      <button id="hardGlobalBtn" class="ctrl-btn"><i class="fas fa-skull"></i> تحدٍ</button>
     </div>
-
-    <footer>
-      <p aria-label="حقوق اللعبة">👑 اضغط لتعتلي العرش .. احذر أن تكون الخاسر</p>
-    </footer>
+    <footer><p>👑 اضغط بالمربع .. الملك أعلى نقاط .. الخاسر أقل نقاط</p></footer>
   </main>
 
   <script>
     (function() {
       "use strict";
 
-      // ---------------------------------------------------------
-      // الأبطال: نسخة نهائية متكيفة مع الهاتف + SEO + أداء عالي
-      // ---------------------------------------------------------
+      // ------------------------------
+      // الإصدار الخارق: مربعات صغيرة - نقر في أي حتة - سلاسة فائقة
+      // ------------------------------
 
-      // ألوان وأيقونات مبهرة
       const PLAYER_COLORS = [
         { name: 'الأحمر', bg: '#b71c1c', light: '#f05545', btn: '#d32f2f', icon: 'fa-dragon' },
         { name: 'الأزرق', bg: '#0d47a1', light: '#5472d3', btn: '#1565c0', icon: 'fa-whale' },
@@ -440,7 +352,6 @@
         { name: 'الذهبي', bg: '#7d4e1a', light: '#ffb74d', btn: '#a5641e', icon: 'fa-lion' }
       ];
 
-      // حالة اللعبة
       let playersCount = 2;
       let players = [];
       let timeLeft = 10.0;
@@ -449,7 +360,7 @@
       let globalTimer = null;
       let hardMode = false;
 
-      // عناصر الواجهة
+      // DOM
       const playersContainer = document.getElementById('playersContainer');
       const globalTimeEl = document.getElementById('globalTime');
       const progressFill = document.getElementById('progressFill');
@@ -464,7 +375,7 @@
       const option3 = document.getElementById('option3');
       const option4 = document.getElementById('option4');
 
-      // ========== إنشاء اللاعبين ==========
+      // إنشاء اللاعبين
       function initPlayers(count) {
         players = [];
         for (let i = 0; i < count; i++) {
@@ -485,70 +396,83 @@
         updateKingAndLoser();
       }
 
-      // ========== رسم البطاقات (مطيعة للشاشات الصغيرة) ==========
+      // رسم البطاقات - مع خاصية النقر على أي مكان بالمربع (سلاسة تامة)
       function renderPlayers() {
         let html = '';
         players.forEach((p, idx) => {
           html += `
-            <div id="playerCard-${idx}" class="player-card" style="border-color: ${p.color}; background: linear-gradient(145deg, #1a1220, #0e0912);">
+            <div id="playerCard-${idx}" class="player-card" style="border-color: ${p.color}; background: linear-gradient(145deg, #15101b, #0c0810);">
               <div id="crownIcon-${idx}" class="crown-icon" style="display: none;"><i class="fas fa-crown" style="color: gold; filter: drop-shadow(0 0 12px orange);"></i></div>
-              <div id="loserIcon-${idx}" class="loser-icon" style="display: none;"><i class="fas fa-poop" style="color: #6b5a4b; filter: drop-shadow(0 0 6px #3a2a1a);"></i></div>
+              <div id="loserIcon-${idx}" class="loser-icon" style="display: none;"><i class="fas fa-poop" style="color: #6b5a4b; filter: drop-shadow(0 0 5px #3a2a1a);"></i></div>
               <div class="player-name" style="color: ${p.lightColor};">
                 <i class="fas ${p.icon}"></i> ${p.name}
               </div>
-              <div id="playerScore-${idx}" class="player-score" style="color: white; background: ${p.color}dd; border: 3px solid ${p.lightColor};">
+              <div id="playerScore-${idx}" class="player-score" style="color: white; background: ${p.color}dd; border: 2.5px solid ${p.lightColor};">
                 ${p.score}
               </div>
-              <button id="clickBtn-${idx}" class="click-btn" style="background: ${p.btnColor}; color: white; border-color: ${p.lightColor};">
-                <i class="fas ${p.icon}"></i> اضرب
-              </button>
+              <!-- تم إخفاء الزر نهائياً واستبداله بالنقر على البطاقة نفسها -->
             </div>
           `;
         });
         playersContainer.innerHTML = html;
 
-        // إضافة مستمعي الأحداث مع الأداء العالي
+        // إضافة مستمع النقر الفائق: أي حتة في المربع تسجل نقاط
         players.forEach((_, idx) => {
-          const btn = document.getElementById(`clickBtn-${idx}`);
-          if (btn) {
-            btn.replaceWith(btn.cloneNode(true));
-            const newBtn = document.getElementById(`clickBtn-${idx}`);
-            newBtn.addEventListener('click', (e) => {
+          const card = document.getElementById(`playerCard-${idx}`);
+          if (card) {
+            // إزالة أي مستمع قديم ثم إضافة المستمع الجديد
+            card.replaceWith(card.cloneNode(true));
+            const newCard = document.getElementById(`playerCard-${idx}`);
+            
+            // حدث النقر العادي + اللمس للهواتف بسلاسة
+            newCard.addEventListener('click', function(e) {
               e.preventDefault();
-              e.stopPropagation();
+              e.stopPropagation(); // منع أي تضارب
               handlePlayerClick(idx);
             });
-            // دعم اللمس للهواتف
-            newBtn.addEventListener('touchstart', (e) => { e.preventDefault(); }, { passive: false });
+
+            // دعم اللمس المباشر مع منع التمرير العرضي
+            newCard.addEventListener('touchstart', function(e) {
+              e.preventDefault(); // يمنع تمرير الصفحة
+              handlePlayerClick(idx);
+            }, { passive: false });
           }
         });
       }
 
-      // ========== منطق النقر ==========
+      // منطق تسجيل النقاط
       function handlePlayerClick(playerIndex) {
+        // لا نقاط بعد انتهاء الوقت
         if (timeLeft <= 0.0) return;
+        
+        // تشغيل المؤقت مع أول نقرة
         if (!gameActive && !gameFinished) {
           startGlobalTimer();
           gameActive = true;
         }
 
+        // زيادة النقاط
         const player = players[playerIndex];
         player.score += 1;
+        
+        // تحديث العرض
         const scoreEl = document.getElementById(`playerScore-${playerIndex}`);
         if (scoreEl) scoreEl.textContent = player.score;
 
-        // وضع التحدي: خصم الوقت
+        // وضع التحدي: خصم 0.05 ثانية مع كل ضغطة
         if (hardMode && timeLeft > 0.05) {
           timeLeft = Math.max(0.0, timeLeft - 0.05);
           globalTimeEl.textContent = timeLeft.toFixed(1);
           updateProgressBar();
         }
 
-        // رد فعل لمسي
-        if (navigator.vibrate) navigator.vibrate(8);
+        // رد فعل بسيط: اهتزاز خفيف
+        if (navigator.vibrate) navigator.vibrate(6);
 
+        // تحديث حالة الملك والخاسر
         updateKingAndLoser();
 
+        // نهاية اللعبة إذا انتهى الوقت
         if (timeLeft <= 0.0) {
           timeLeft = 0.0;
           globalTimeEl.textContent = '0.0';
@@ -556,7 +480,7 @@
         }
       }
 
-      // ========== تحديث الملك والخاسر ==========
+      // تحديث الملك (أعلى نقاط) والخاسر (أقل نقاط)
       function updateKingAndLoser() {
         if (!players.length) return;
         
@@ -577,15 +501,15 @@
           players[kingIdx].isKing = true;
           kingNameEl.textContent = `${players[kingIdx].name} (${players[kingIdx].score})`;
           kingNameEl.style.background = players[kingIdx].color;
-          kingNameEl.style.boxShadow = `0 0 35px ${players[kingIdx].lightColor}`;
+          kingNameEl.style.boxShadow = `0 0 30px ${players[kingIdx].lightColor}`;
 
           players[loserIdx].isLoser = true;
           loserNameEl.textContent = `${players[loserIdx].name} (${players[loserIdx].score})`;
           loserNameEl.style.background = '#2a2a3a';
-          loserNameEl.style.boxShadow = `0 0 18px #1e1e1e`;
+          loserNameEl.style.boxShadow = `0 0 12px #1e1e1e`;
         }
 
-        // إدارة التيجان وأيقونات الخاسر
+        // تحديث التيجان والألقاب والحدود
         players.forEach((p, idx) => {
           const crownIcon = document.getElementById(`crownIcon-${idx}`);
           const loserIcon = document.getElementById(`loserIcon-${idx}`);
@@ -595,20 +519,20 @@
           const card = document.getElementById(`playerCard-${idx}`);
           if (card) {
             if (p.isKing) {
-              card.style.border = `5px solid gold`;
-              card.style.boxShadow = `0 0 40px gold`;
+              card.style.border = `4px solid gold`;
+              card.style.boxShadow = `0 0 30px gold`;
             } else if (p.isLoser) {
-              card.style.border = `3px solid #5a5a5a`;
-              card.style.boxShadow = `0 0 15px #3a3a3a`;
+              card.style.border = `2.5px solid #5a5a5a`;
+              card.style.boxShadow = `0 0 12px #3a3a3a`;
             } else {
-              card.style.border = `3px solid ${p.color}`;
-              card.style.boxShadow = `0 12px 20px #00000080`;
+              card.style.border = `2.5px solid ${p.color}`;
+              card.style.boxShadow = `0 8px 16px #00000080`;
             }
           }
         });
       }
 
-      // ========== المؤقت ==========
+      // مؤقت اللعبة
       function startGlobalTimer() {
         if (globalTimer) clearInterval(globalTimer);
         globalTimer = setInterval(() => {
@@ -640,14 +564,11 @@
       function endGame() {
         gameActive = false;
         gameFinished = true;
-        players.forEach((_, idx) => {
-          const btn = document.getElementById(`clickBtn-${idx}`);
-          if (btn) btn.disabled = true;
-        });
+        // لا حاجة لتعطيل الأزرار لأنه لا توجد أزرار، النقر لا يعمل بسبب timeLeft <= 0
         updateKingAndLoser();
       }
 
-      // ========== إعادة الضبط ==========
+      // إعادة الضبط الكامل
       function fullReset() {
         if (globalTimer) clearInterval(globalTimer);
         globalTimer = null;
@@ -663,8 +584,6 @@
           p.isLoser = false;
           const scoreEl = document.getElementById(`playerScore-${idx}`);
           if (scoreEl) scoreEl.textContent = '0';
-          const btn = document.getElementById(`clickBtn-${idx}`);
-          if (btn) btn.disabled = false;
         });
 
         kingNameEl.textContent = 'لا ملك';
@@ -679,13 +598,13 @@
           if (loserIcon) loserIcon.style.display = 'none';
           const card = document.getElementById(`playerCard-${idx}`);
           if (card && players[idx]) {
-            card.style.border = `3px solid ${players[idx].color}`;
-            card.style.boxShadow = `0 12px 20px #00000080`;
+            card.style.border = `2.5px solid ${players[idx].color}`;
+            card.style.boxShadow = `0 8px 16px #00000080`;
           }
         });
       }
 
-      // ========== تغيير عدد اللاعبين ==========
+      // تغيير عدد اللاعبين
       function setPlayersCount(count) {
         playersCount = count;
         [option2, option3, option4].forEach(el => el?.classList.remove('active'));
@@ -699,7 +618,7 @@
         initPlayers(count);
       }
 
-      // ========== وضع التحدي ==========
+      // تبديل وضع التحدي
       function toggleHardMode() {
         hardMode = !hardMode;
         if (hardMode) {
@@ -713,14 +632,14 @@
         }
       }
 
-      // ========== ربط الأحداث ==========
+      // ربط أحداث الأزرار
       select2Btn.addEventListener('click', () => setPlayersCount(2));
       select3Btn.addEventListener('click', () => setPlayersCount(3));
       select4Btn.addEventListener('click', () => setPlayersCount(4));
       resetBtn.addEventListener('click', () => { fullReset(); initPlayers(playersCount); });
       hardGlobalBtn.addEventListener('click', toggleHardMode);
 
-      // بداية مثالية مع لاعبين
+      // الانطلاق
       setPlayersCount(2);
     })();
   </script>
