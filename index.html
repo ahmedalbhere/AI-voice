@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>Text To Speech Pro</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{box-sizing:border-box;font-family:'Segoe UI',Tahoma}
+body{
+    margin:0;
+    min-height:100vh;
+    background:linear-gradient(135deg,#667eea,#764ba2);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+.app{
+    background:#fff;
+    width:95%;
+    max-width:600px;
+    border-radius:18px;
+    box-shadow:0 20px 40px rgba(0,0,0,.25);
+    padding:20px;
+}
+h1{
+    text-align:center;
+    margin-bottom:10px;
+}
+textarea{
+    width:100%;
+    height:140px;
+    padding:12px;
+    border-radius:12px;
+    border:1px solid #ccc;
+    font-size:16px;
+    resize:none;
+}
+.row{
+    margin-top:12px;
+}
+label{
+    font-size:14px;
+    font-weight:bold;
+}
+select,input[type=range]{
+    width:100%;
+    margin-top:5px;
+}
+.buttons{
+    display:flex;
+    gap:10px;
+    margin-top:15px;
+}
+button{
+    flex:1;
+    padding:12px;
+    font-size:16px;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+}
+.play{background:#4CAF50;color:#fff}
+.pause{background:#FF9800;color:#fff}
+.stop{background:#F44336;color:#fff}
+.status{
+    margin-top:10px;
+    text-align:center;
+    font-size:14px;
+    color:#333;
+}
+footer{
+    text-align:center;
+    margin-top:10px;
+    font-size:12px;
+    opacity:.7;
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+<h1>🔊 Text To Speech Pro</h1>
+
+<textarea id="text" placeholder="اكتب النص هنا..."></textarea>
+
+<div class="row">
+<label>🎤 الصوت</label>
+<select id="voice"></select>
+</div>
+
+<div class="row">
+<label>🔈 مستوى الصوت</label>
+<input type="range" id="volume" min="0" max="1" step="0.1" value="1">
+</div>
+
+<div class="row">
+<label>⏩ السرعة</label>
+<input type="range" id="rate" min="0.5" max="2" step="0.1" value="1">
+</div>
+
+<div class="row">
+<label>🎵 النبرة</label>
+<input type="range" id="pitch" min="0" max="2" step="0.1" value="1">
+</div>
+
+<div class="buttons">
+<button class="play" onclick="play()">▶ تشغيل</button>
+<button class="pause" onclick="pause()">⏸ إيقاف مؤقت</button>
+<button class="stop" onclick="stop()">⏹ إيقاف</button>
+</div>
+
+<div class="status" id="status">جاهز للتشغيل</div>
+
+<footer>© Text To Speech Advanced</footer>
+</div>
+
+<script>
+const synth = window.speechSynthesis;
+const voiceSelect = document.getElementById("voice");
+const status = document.getElementById("status");
+let utterance;
+let voices = [];
+
+function loadVoices(){
+    voices = synth.getVoices();
+    voiceSelect.innerHTML = "";
+    voices.forEach((v,i)=>{
+        let opt = document.createElement("option");
+        opt.value = i;
+        opt.text = `${v.name} (${v.lang})`;
+        voiceSelect.appendChild(opt);
+    });
+}
+loadVoices();
+speechSynthesis.onvoiceschanged = loadVoices;
+
+function play(){
+    let text = document.getElementById("text").value.trim();
+    if(!text){ alert("اكتب نصًا"); return; }
+
+    stop();
+
+    utterance = new SpeechSynthesisUtterance(text);
+    utterance.voice = voices[voiceSelect.value];
+    utterance.volume = volume.value;
+    utterance.rate = rate.value;
+    utterance.pitch = pitch.value;
+
+    utterance.onstart = ()=> status.innerText = "🔊 جاري القراءة...";
+    utterance.onend = ()=> status.innerText = "✅ انتهى التشغيل";
+    utterance.onerror = ()=> status.innerText = "❌ خطأ في التشغيل";
+
+    synth.speak(utterance);
+}
+
+function pause(){
+    if(synth.speaking && !synth.paused){
+        synth.pause();
+        status.innerText = "⏸ تم الإيقاف المؤقت";
+    } else if(synth.paused){
+        synth.resume();
+        status.innerText = "▶ تم الاستكمال";
+    }
+}
+
+function stop(){
+    if(synth.speaking){
+        synth.cancel();
+        status.innerText = "⏹ تم الإيقاف";
+    }
+}
+</script>
+
+</body>
+</html>
