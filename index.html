@@ -8,7 +8,7 @@
 <style>
 body{
     font-family:Tahoma;
-    background:linear-gradient(135deg,#1e3c72,#2a5298);
+    background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
     margin:0;
     min-height:100vh;
     display:flex;
@@ -16,21 +16,21 @@ body{
     align-items:center;
     direction:rtl;
 }
-.box{
+.app{
     background:#fff;
     width:95%;
-    max-width:500px;
+    max-width:550px;
     padding:20px;
-    border-radius:15px;
-    box-shadow:0 15px 30px rgba(0,0,0,.3);
+    border-radius:18px;
+    box-shadow:0 20px 40px rgba(0,0,0,.35);
 }
-h1{text-align:center}
+h1{text-align:center;margin-bottom:10px}
 textarea{
     width:100%;
-    height:130px;
-    padding:10px;
-    border-radius:10px;
+    height:140px;
+    border-radius:12px;
     border:1px solid #ccc;
+    padding:12px;
     font-size:16px;
 }
 select,button{
@@ -38,53 +38,92 @@ select,button{
     margin-top:10px;
     padding:12px;
     font-size:16px;
-    border-radius:10px;
+    border-radius:12px;
 }
 button{
-    background:#1e88e5;
+    background:#00796b;
     color:#fff;
     border:none;
     cursor:pointer;
 }
-button:hover{background:#1565c0}
-audio{width:100%;margin-top:10px}
+button:hover{background:#004d40}
+.status{
+    text-align:center;
+    margin-top:10px;
+    font-size:14px;
+}
 </style>
 </head>
 
 <body>
-<div class="box">
+
+<div class="app">
 <h1>🔊 تحويل النص العربي إلى كلام</h1>
 
-<textarea id="text" placeholder="اكتب النص العربي هنا..."></textarea>
+<textarea id="text" placeholder="اكتب النص هنا..."></textarea>
 
-<select id="voice">
-<option value="ar-XA-Wavenet-A">ذكر عربي</option>
-<option value="ar-XA-Wavenet-B">أنثى عربية</option>
-<option value="ar-XA-Neural2-A">ذكاء اصطناعي</option>
-</select>
+<select id="voice"></select>
 
-<button onclick="convert()">تحويل إلى صوت 🎧</button>
+<button onclick="speak()">▶ تشغيل الصوت</button>
+<button onclick="stop()">⏹ إيقاف</button>
 
-<audio id="audio" controls></audio>
+<div class="status" id="status">جاهز</div>
 </div>
 
 <script>
-async function convert(){
-    const text = document.getElementById("text").value;
-    const voice = document.getElementById("voice").value;
+const synth = speechSynthesis;
+const voiceSelect = document.getElementById("voice");
+const status = document.getElementById("status");
+let voices = [];
 
+function loadVoices(){
+    voices = synth.getVoices();
+
+    voiceSelect.innerHTML = "";
+    voices
+      .filter(v => v.lang.startsWith("ar"))
+      .forEach((v,i)=>{
+        const opt = document.createElement("option");
+        opt.value = voices.indexOf(v);
+        opt.text = v.lang.includes("EG") 
+          ? "🇪🇬 عربي مصري"
+          : v.lang + " - " + v.name;
+        voiceSelect.appendChild(opt);
+      });
+
+    if(!voiceSelect.options.length){
+        const opt = document.createElement("option");
+        opt.text = "❌ لا يوجد صوت عربي على جهازك";
+        voiceSelect.appendChild(opt);
+    }
+}
+
+loadVoices();
+speechSynthesis.onvoiceschanged = loadVoices;
+
+function speak(){
+    const text = document.getElementById("text").value.trim();
     if(!text){ alert("اكتب نصًا"); return; }
 
-    const res = await fetch("/tts",{
-        method:"POST",
-        headers:{ "Content-Type":"application/json" },
-        body:JSON.stringify({ text, voice })
-    });
+    const utter = new SpeechSynthesisUtterance(text);
+    const v = voices[voiceSelect.value];
+    if(v) utter.voice = v;
 
-    const data = await res.json();
-    document.getElementById("audio").src =
-        "data:audio/mp3;base64," + data.audio;
+    utter.lang = v ? v.lang : "ar-SA";
+
+    utter.onstart = ()=> status.innerText = "🔊 جاري القراءة...";
+    utter.onend = ()=> status.innerText = "✅ انتهى";
+    utter.onerror = ()=> status.innerText = "❌ خطأ";
+
+    synth.cancel();
+    synth.speak(utter);
+}
+
+function stop(){
+    synth.cancel();
+    status.innerText = "⏹ تم الإيقاف";
 }
 </script>
+
 </body>
 </html>
