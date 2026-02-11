@@ -1,177 +1,691 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<title>Text To Speech Pro</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نص → كلام | محول النص لصوت عربي MP3</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', 'Segoe UI', Tahoma, sans-serif;
+        }
 
-<style>
-*{box-sizing:border-box;font-family:'Segoe UI',Tahoma}
-body{
-    margin:0;
-    min-height:100vh;
-    background:linear-gradient(135deg,#667eea,#764ba2);
-    display:flex;
-    justify-content:center;
-    align-items:center;
-}
-.app{
-    background:#fff;
-    width:95%;
-    max-width:600px;
-    border-radius:18px;
-    box-shadow:0 20px 40px rgba(0,0,0,.25);
-    padding:20px;
-}
-h1{
-    text-align:center;
-    margin-bottom:10px;
-}
-textarea{
-    width:100%;
-    height:140px;
-    padding:12px;
-    border-radius:12px;
-    border:1px solid #ccc;
-    font-size:16px;
-    resize:none;
-}
-.row{
-    margin-top:12px;
-}
-label{
-    font-size:14px;
-    font-weight:bold;
-}
-select,input[type=range]{
-    width:100%;
-    margin-top:5px;
-}
-.buttons{
-    display:flex;
-    gap:10px;
-    margin-top:15px;
-}
-button{
-    flex:1;
-    padding:12px;
-    font-size:16px;
-    border:none;
-    border-radius:12px;
-    cursor:pointer;
-}
-.play{background:#4CAF50;color:#fff}
-.pause{background:#FF9800;color:#fff}
-.stop{background:#F44336;color:#fff}
-.status{
-    margin-top:10px;
-    text-align:center;
-    font-size:14px;
-    color:#333;
-}
-footer{
-    text-align:center;
-    margin-top:10px;
-    font-size:12px;
-    opacity:.7;
-}
-</style>
+        body {
+            background: linear-gradient(145deg, #1a4c4c 0%, #1e5555 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.97);
+            border-radius: 30px;
+            box-shadow: 0 25px 50px -8px rgba(0, 0, 0, 0.4);
+            padding: 40px;
+            width: 100%;
+            max-width: 800px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        h1 {
+            color: #1e5555;
+            margin-bottom: 15px;
+            font-size: 2.2em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 3px solid #1e5555;
+            padding-bottom: 15px;
+        }
+
+        .subtitle {
+            color: #2c7a7a;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #1e5555;
+            font-weight: 700;
+            font-size: 1.1em;
+        }
+
+        textarea {
+            width: 100%;
+            height: 200px;
+            padding: 20px;
+            border: 3px solid #b7d7d7;
+            border-radius: 20px;
+            font-size: 20px;
+            resize: vertical;
+            transition: all 0.3s;
+            background: #f4fbfb;
+            color: #0a3b3b;
+            line-height: 1.8;
+            font-weight: 500;
+        }
+
+        textarea:focus {
+            border-color: #1e5555;
+            outline: none;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(30, 85, 85, 0.1);
+        }
+
+        .controls-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+            background: #e8f3f3;
+            padding: 20px;
+            border-radius: 20px;
+        }
+
+        .control-item {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .control-item label {
+            margin-bottom: 0;
+            font-size: 0.95em;
+            color: #1e5555;
+        }
+
+        select {
+            padding: 12px 15px;
+            border: 2px solid #b7d7d7;
+            border-radius: 15px;
+            font-size: 16px;
+            background: white;
+            color: #1e5555;
+            cursor: pointer;
+            transition: all 0.3s;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231e5555' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: left 15px center;
+            background-size: 20px;
+            padding-left: 45px;
+        }
+
+        select:hover {
+            border-color: #1e5555;
+        }
+
+        .arabic-badge {
+            background: #1e5555;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 14px;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .buttons-group {
+            display: flex;
+            gap: 15px;
+            margin: 30px 0 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            flex: 1;
+            min-width: 180px;
+        }
+
+        .btn-speak {
+            background: linear-gradient(145deg, #1e5555, #154242);
+            color: white;
+            box-shadow: 0 10px 20px -5px rgba(30, 85, 85, 0.5);
+        }
+
+        .btn-download {
+            background: linear-gradient(145deg, #2c7a7a, #1e5555);
+            color: white;
+            box-shadow: 0 10px 20px -5px rgba(44, 122, 122, 0.5);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.4);
+        }
+
+        .audio-player-container {
+            background: #e8f3f3;
+            padding: 20px;
+            border-radius: 20px;
+            margin-top: 20px;
+        }
+
+        audio {
+            width: 100%;
+            border-radius: 30px;
+        }
+
+        .status {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 15px;
+            display: none;
+            font-weight: 600;
+        }
+
+        .status.active {
+            display: block;
+        }
+
+        .status-success {
+            background: #d4edda;
+            color: #1e5555;
+            border: 1px solid #c3e6cb;
+        }
+
+        .status-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .status-info {
+            background: #d1ecf1;
+            color: #1e5555;
+            border: 1px solid #bee5eb;
+        }
+
+        .counter {
+            text-align: left;
+            color: #1e5555;
+            margin-top: 5px;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+
+        .voice-note {
+            background: #fff3cd;
+            color: #856404;
+            padding: 10px;
+            border-radius: 10px;
+            margin: 10px 0;
+            font-size: 14px;
+            border-right: 4px solid #1e5555;
+        }
+
+        @media (max-width: 600px) {
+            .card {
+                padding: 25px;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            .btn {
+                padding: 12px 20px;
+                min-width: 100%;
+            }
+        }
+    </style>
 </head>
-
 <body>
+    <div class="card">
+        <h1>
+            <span>🎙️ محول النص إلى كلام عربي</span>
+        </h1>
+        <div class="arabic-badge">
+            🇸🇦 يدعم اللهجات العربية الفصحى والمحلية
+        </div>
+        <div class="subtitle">
+            ✍️ اكتب بالعربية واستمع بصوت عربي طبيعي - تحميل مباشر MP3
+        </div>
 
-<div class="app">
-<h1>🔊 Text To Speech Pro</h1>
+        <div class="voice-note" id="voiceNote">
+            ⚡ جاري تحميل الأصوات العربية... يرجى الانتظار
+        </div>
 
-<textarea id="text" placeholder="اكتب النص هنا..."></textarea>
+        <div class="input-group">
+            <label>📝 النص العربي</label>
+            <textarea id="textInput" placeholder="اكتب هنا باللغة العربية الفصحى أو العامية..."></textarea>
+            <div class="counter">
+                عدد الحروف: <span id="charCount">0</span> / 1000
+            </div>
+        </div>
 
-<div class="row">
-<label>🎤 الصوت</label>
-<select id="voice"></select>
-</div>
+        <div class="controls-grid">
+            <div class="control-item">
+                <label>🎤 اختر الصوت العربي</label>
+                <select id="voiceSelect">
+                    <option value="">🔍 جاري البحث عن الأصوات العربية...</option>
+                </select>
+            </div>
+            <div class="control-item">
+                <label>⚡ سرعة الكلام</label>
+                <select id="speedSelect">
+                    <option value="0.5">🐢 بطيء جداً</option>
+                    <option value="0.75">🐢 بطيء</option>
+                    <option value="1" selected>▶️ طبيعي</option>
+                    <option value="1.25">🐇 سريع</option>
+                    <option value="1.5">🐇 سريع جداً</option>
+                </select>
+            </div>
+            <div class="control-item">
+                <label>🎵 نبرة الصوت</label>
+                <select id="pitchSelect">
+                    <option value="0.5">🔽 منخفضة</option>
+                    <option value="0.75">🔽 منخفضة قليلاً</option>
+                    <option value="1" selected>▶️ عادية</option>
+                    <option value="1.25">🔼 مرتفعة قليلاً</option>
+                    <option value="1.5">🔼 مرتفعة</option>
+                </select>
+            </div>
+        </div>
 
-<div class="row">
-<label>🔈 مستوى الصوت</label>
-<input type="range" id="volume" min="0" max="1" step="0.1" value="1">
-</div>
+        <div class="buttons-group">
+            <button id="speakBtn" class="btn btn-speak">
+                <span>🔊</span> تحدث بالعربية
+            </button>
+            <button id="downloadBtn" class="btn btn-download">
+                <span>💾</span> تحميل MP3 عربي
+            </button>
+        </div>
 
-<div class="row">
-<label>⏩ السرعة</label>
-<input type="range" id="rate" min="0.5" max="2" step="0.1" value="1">
-</div>
+        <div id="status" class="status"></div>
 
-<div class="row">
-<label>🎵 النبرة</label>
-<input type="range" id="pitch" min="0" max="2" step="0.1" value="1">
-</div>
+        <div id="audioPlayerContainer" style="display: none;">
+            <div class="audio-player-container">
+                <audio id="audioPlayer" controls controlsList="nodownload">
+                    متصفحك لا يدعم مشغل الصوت
+                </audio>
+            </div>
+        </div>
+    </div>
 
-<div class="buttons">
-<button class="play" onclick="play()">▶ تشغيل</button>
-<button class="pause" onclick="pause()">⏸ إيقاف مؤقت</button>
-<button class="stop" onclick="stop()">⏹ إيقاف</button>
-</div>
+    <script>
+        // تهيئة المتغيرات
+        const synth = window.speechSynthesis;
+        let voices = [];
+        let arabicVoices = [];
+        let currentAudioUrl = null;
+        let mediaRecorder = null;
+        let audioChunks = [];
 
-<div class="status" id="status">جاهز للتشغيل</div>
+        // عناصر DOM
+        const textInput = document.getElementById('textInput');
+        const voiceSelect = document.getElementById('voiceSelect');
+        const speedSelect = document.getElementById('speedSelect');
+        const pitchSelect = document.getElementById('pitchSelect');
+        const speakBtn = document.getElementById('speakBtn');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const statusEl = document.getElementById('status');
+        const audioPlayer = document.getElementById('audioPlayer');
+        const audioPlayerContainer = document.getElementById('audioPlayerContainer');
+        const charCount = document.getElementById('charCount');
+        const voiceNote = document.getElementById('voiceNote');
 
-<footer>© Text To Speech Advanced</footer>
-</div>
+        // تحديث عداد الحروف
+        textInput.addEventListener('input', function() {
+            const count = this.value.length;
+            charCount.textContent = count;
+            
+            if (count > 1000) {
+                this.value = this.value.substring(0, 1000);
+                charCount.textContent = 1000;
+                showStatus('الحد الأقصى 1000 حرف', 'error');
+            }
+        });
 
-<script>
-const synth = window.speechSynthesis;
-const voiceSelect = document.getElementById("voice");
-const status = document.getElementById("status");
-let utterance;
-let voices = [];
+        // دالة لعرض الحالة
+        function showStatus(message, type = 'info') {
+            statusEl.textContent = message;
+            statusEl.className = 'status active';
+            
+            switch(type) {
+                case 'success':
+                    statusEl.classList.add('status-success');
+                    break;
+                case 'error':
+                    statusEl.classList.add('status-error');
+                    break;
+                default:
+                    statusEl.classList.add('status-info');
+            }
 
-function loadVoices(){
-    voices = synth.getVoices();
-    voiceSelect.innerHTML = "";
-    voices.forEach((v,i)=>{
-        let opt = document.createElement("option");
-        opt.value = i;
-        opt.text = `${v.name} (${v.lang})`;
-        voiceSelect.appendChild(opt);
-    });
-}
-loadVoices();
-speechSynthesis.onvoiceschanged = loadVoices;
+            setTimeout(() => {
+                statusEl.classList.remove('active');
+            }, 4000);
+        }
 
-function play(){
-    let text = document.getElementById("text").value.trim();
-    if(!text){ alert("اكتب نصًا"); return; }
+        // دالة لتحميل الأصوات العربية فقط
+        function loadArabicVoices() {
+            voices = synth.getVoices();
+            
+            // تصفية الأصوات العربية فقط
+            arabicVoices = voices.filter(voice => 
+                voice.lang.includes('ar') || 
+                voice.lang.includes('ara') ||
+                voice.name.includes('Arabic') ||
+                voice.name.includes('عربي')
+            );
 
-    stop();
+            // تحديث القائمة المنسدلة
+            voiceSelect.innerHTML = '';
 
-    utterance = new SpeechSynthesisUtterance(text);
-    utterance.voice = voices[voiceSelect.value];
-    utterance.volume = volume.value;
-    utterance.rate = rate.value;
-    utterance.pitch = pitch.value;
+            if (arabicVoices.length > 0) {
+                voiceNote.style.display = 'none';
+                
+                // إضافة الأصوات العربية
+                arabicVoices.forEach((voice, index) => {
+                    const option = document.createElement('option');
+                    option.value = voice.name;
+                    
+                    // تنسيق اسم الصوت
+                    let voiceName = voice.name;
+                    if (voice.name.includes('Microsoft')) {
+                        voiceName = voice.name.replace('Microsoft', 'مايكروسوفت');
+                    }
+                    
+                    option.textContent = `🇸🇦 ${voiceName} - ${voice.lang}`;
+                    
+                    // جعل أول صوت عربي هو الافتراضي
+                    if (index === 0) {
+                        option.selected = true;
+                    }
+                    
+                    voiceSelect.appendChild(option);
+                });
 
-    utterance.onstart = ()=> status.innerText = "🔊 جاري القراءة...";
-    utterance.onend = ()=> status.innerText = "✅ انتهى التشغيل";
-    utterance.onerror = ()=> status.innerText = "❌ خطأ في التشغيل";
+                showStatus(`✅ تم تحميل ${arabicVoices.length} صوت عربي`, 'success');
+            } else {
+                // إذا لم يتم العثور على أصوات عربية
+                voiceSelect.innerHTML = '<option value="">❌ لا توجد أصوات عربية - استخدم الطريقة البديلة</option>';
+                voiceNote.innerHTML = '⚠️ لم يتم العثور على أصوات عربية في متصفحك. جرب هذه الحلول:<br>' +
+                    '1️⃣ استخدم متصفح كروم أو فايرفوكس<br>' +
+                    '2️⃣ ثبت حزمة اللغة العربية من إعدادات المتصفح<br>' +
+                    '3️⃣ استخدم النص التالي للتجربة: "مرحباً بكم"';
+                voiceNote.style.background = '#fff3cd';
+                voiceNote.style.color = '#856404';
+            }
+        }
 
-    synth.speak(utterance);
-}
+        // تحميل الأصوات عند تغييرها
+        loadArabicVoices();
+        if (speechSynthesis.onvoiceschanged !== undefined) {
+            speechSynthesis.onvoiceschanged = loadArabicVoices;
+        }
 
-function pause(){
-    if(synth.speaking && !synth.paused){
-        synth.pause();
-        status.innerText = "⏸ تم الإيقاف المؤقت";
-    } else if(synth.paused){
-        synth.resume();
-        status.innerText = "▶ تم الاستكمال";
-    }
-}
+        // محاولة تحميل الأصوات كل ثانية حتى تظهر
+        let attempts = 0;
+        const loadInterval = setInterval(() => {
+            if (arabicVoices.length === 0 && attempts < 20) {
+                loadArabicVoices();
+                attempts++;
+            } else {
+                clearInterval(loadInterval);
+            }
+        }, 500);
 
-function stop(){
-    if(synth.speaking){
-        synth.cancel();
-        status.innerText = "⏹ تم الإيقاف";
-    }
-}
-</script>
+        // دالة للتحدث بالعربية
+        function speakArabic(text, callback) {
+            // إيقاف أي كلام سابق
+            synth.cancel();
 
+            const utterance = new SpeechSynthesisUtterance(text);
+            
+            // اختيار الصوت العربي
+            if (arabicVoices.length > 0) {
+                const selectedVoiceName = voiceSelect.value;
+                let selectedVoice = arabicVoices.find(v => v.name === selectedVoiceName);
+                
+                if (!selectedVoice) {
+                    // إذا لم يتم اختيار صوت، اختر أول صوت عربي
+                    selectedVoice = arabicVoices[0];
+                }
+                
+                utterance.voice = selectedVoice;
+                console.log('Using Arabic voice:', selectedVoice.name);
+            }
+            
+            // إعدادات الصوت
+            utterance.rate = parseFloat(speedSelect.value);
+            utterance.pitch = parseFloat(pitchSelect.value);
+            utterance.lang = 'ar-SA'; // ضبط اللغة للعربية
+            
+            // أحداث التحدث
+            utterance.onstart = () => {
+                showStatus('🔊 جاري التحدث بالعربية...', 'info');
+            };
+
+            utterance.onend = () => {
+                showStatus('✅ تم الانتهاء من التحدث', 'success');
+                if (callback) callback();
+            };
+
+            utterance.onerror = (event) => {
+                console.error('Speech error:', event);
+                showStatus('❌ حدث خطأ في التحدث - تأكد من وجود أصوات عربية', 'error');
+            };
+
+            // تشغيل الصوت
+            synth.speak(utterance);
+            
+            // مهم جداً: إعادة تشغيل الـ speech synthesis إذا توقف
+            if (synth.paused) {
+                synth.resume();
+            }
+        }
+
+        // دالة تسجيل الصوت وتحويله لـ MP3
+        async function recordArabicSpeech(text) {
+            return new Promise((resolve, reject) => {
+                try {
+                    // إيقاف أي تسجيل سابق
+                    if (mediaRecorder && mediaRecorder.state === 'recording') {
+                        mediaRecorder.stop();
+                    }
+
+                    // إنشاء AudioContext
+                    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    
+                    // إنشاء MediaStreamDestination
+                    const destination = audioContext.createMediaStreamDestination();
+                    
+                    // إعداد المسجل
+                    audioChunks = [];
+                    mediaRecorder = new MediaRecorder(destination.stream);
+                    
+                    mediaRecorder.ondataavailable = (event) => {
+                        if (event.data.size > 0) {
+                            audioChunks.push(event.data);
+                        }
+                    };
+                    
+                    mediaRecorder.onstop = () => {
+                        const audioBlob = new Blob(audioChunks, { type: 'audio/mp3' });
+                        const url = URL.createObjectURL(audioBlob);
+                        
+                        // عرض في المشغل
+                        audioPlayer.src = url;
+                        audioPlayerContainer.style.display = 'block';
+                        
+                        if (currentAudioUrl) {
+                            URL.revokeObjectURL(currentAudioUrl);
+                        }
+                        currentAudioUrl = url;
+                        
+                        resolve(url);
+                    };
+                    
+                    // بدء التسجيل
+                    mediaRecorder.start();
+                    
+                    // التحدث بالعربية
+                    const utterance = new SpeechSynthesisUtterance(text);
+                    
+                    if (arabicVoices.length > 0) {
+                        utterance.voice = arabicVoices[0];
+                    }
+                    
+                    utterance.rate = parseFloat(speedSelect.value);
+                    utterance.pitch = parseFloat(pitchSelect.value);
+                    utterance.lang = 'ar-SA';
+                    
+                    // ربط الصوت بالتسجيل
+                    const source = audioContext.createMediaElementSource(new Audio());
+                    source.connect(destination);
+                    
+                    utterance.onend = () => {
+                        mediaRecorder.stop();
+                        audioContext.close();
+                    };
+                    
+                    synth.speak(utterance);
+                    
+                } catch (error) {
+                    console.error('Recording error:', error);
+                    reject(error);
+                }
+            });
+        }
+
+        // حدث زر التحدث
+        speakBtn.addEventListener('click', function() {
+            const text = textInput.value.trim();
+            
+            if (!text) {
+                showStatus('❌ الرجاء كتابة نص بالعربية', 'error');
+                textInput.focus();
+                return;
+            }
+
+            if (arabicVoices.length === 0) {
+                showStatus('⚠️ لا توجد أصوات عربية. جرب تحديث الصفحة أو استخدام متصفح آخر', 'error');
+                return;
+            }
+
+            speakBtn.disabled = true;
+            speakArabic(text, () => {
+                speakBtn.disabled = false;
+            });
+        });
+
+        // حدث زر التحميل
+        downloadBtn.addEventListener('click', async function() {
+            const text = textInput.value.trim();
+            
+            if (!text) {
+                showStatus('❌ الرجاء كتابة نص بالعربية', 'error');
+                textInput.focus();
+                return;
+            }
+
+            if (arabicVoices.length === 0) {
+                showStatus('⚠️ لا توجد أصوات عربية. جرب تحديث الصفحة', 'error');
+                return;
+            }
+
+            downloadBtn.disabled = true;
+            speakBtn.disabled = true;
+            
+            showStatus('⏳ جاري إنشاء الملف الصوتي العربي...', 'info');
+            
+            try {
+                // محاولة تسجيل الصوت
+                await recordArabicSpeech(text);
+                
+                // تحميل الملف
+                setTimeout(() => {
+                    if (currentAudioUrl) {
+                        const a = document.createElement('a');
+                        a.href = currentAudioUrl;
+                        a.download = `كلام-عربي-${Date.now()}.mp3`;
+                        a.click();
+                        showStatus('✅ تم تحميل الملف الصوتي بنجاح', 'success');
+                    }
+                }, 1000);
+                
+            } catch (error) {
+                console.error('Download error:', error);
+                showStatus('❌ فشل تحميل الملف - استخدم زر التحدث أولاً', 'error');
+            } finally {
+                downloadBtn.disabled = false;
+                speakBtn.disabled = false;
+            }
+        });
+
+        // نص تجريبي عربي
+        const arabicExamples = [
+            'مرحباً بكم في موقع تحويل النص إلى كلام عربي',
+            'اللغة العربية من أجمل لغات العالم',
+            'يمكنك تحويل أي نص عربي إلى صوت بجودة عالية',
+            'نتمنى لكم تجربة ممتعة مع الأصوات العربية',
+            'هذا الموقع يدعم اللهجات العربية المختلفة'
+        ];
+
+        // تغيير النص التجريبي كل 3 ثواني
+        let exampleIndex = 0;
+        setInterval(() => {
+            if (!textInput.value && !textInput.matches(':focus')) {
+                textInput.placeholder = `✍️ مثال: ${arabicExamples[exampleIndex]}`;
+                exampleIndex = (exampleIndex + 1) % arabicExamples.length;
+            }
+        }, 3000);
+
+        // تعيين نص عربي افتراضي للمساعدة
+        window.onload = function() {
+            textInput.placeholder = '✍️ اكتب هنا بالعربية - مثال: السلام عليكم ورحمة الله وبركاته';
+            
+            // محاولة تحميل الأصوات مرة أخرى
+            setTimeout(() => {
+                if (arabicVoices.length === 0) {
+                    loadArabicVoices();
+                }
+            }, 1000);
+        };
+
+        // تنظيف الموارد
+        window.addEventListener('beforeunload', function() {
+            if (currentAudioUrl) {
+                URL.revokeObjectURL(currentAudioUrl);
+            }
+            synth.cancel();
+        });
+
+        // دعم النص العربي من الحافظة
+        textInput.addEventListener('paste', function(e) {
+            const pastedText = e.clipboardData.getData('text');
+            const arabicRegex = /[\u0600-\u06FF]/;
+            
+            if (!arabicRegex.test(pastedText) && pastedText.length > 0) {
+                showStatus('💡 نصيحة: الموقع مصمم خصيصاً للنص العربي', 'info');
+            }
+        });
+
+        console.log('✅ موقع تحويل النص العربي جاهز!');
+    </script>
 </body>
 </html>
